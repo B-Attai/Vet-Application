@@ -6,12 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
 @Getter @Setter @NoArgsConstructor
 @Table(name= "PrescriptionRecords")
-public class PrescriptionRecords {
+public class PrescriptionRecords implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int scriptRecord;
@@ -23,10 +25,11 @@ public class PrescriptionRecords {
     private String dosage;
     private String deliveryMethod;
     private String drugName;
+    private int treatmentMethodId;
 
     public PrescriptionRecords(int scriptRecord, int animalId, String theDate,
                                String instructions, String drugId, String dosage,
-                               String deliveryMethod, String drugName)//, int treatmentMethod)
+                               String deliveryMethod, String drugName, int treatmentMethodId)
     {
         this.scriptRecord = scriptRecord;
         this.animalId = animalId;
@@ -36,6 +39,10 @@ public class PrescriptionRecords {
         this.dosage = dosage;
         this.deliveryMethod = deliveryMethod;
         this.drugName = drugName;
+        this.treatmentMethodId = treatmentMethodId;
     }
 
+    @OneToMany(targetEntity = TreatmentMethod.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "treatmentId", referencedColumnName = "treatmentMethodId")
+    private List<TreatmentMethod> treatmentMethodList;
 }
