@@ -33,7 +33,7 @@ public class PrescriptionRecordsController {
         }
     }
 
-    @PutMapping("/modify/{scriptRecord}")
+    @PutMapping("/{scriptRecord}")
     public ResponseEntity<?> updatePrescriptionRecord(@RequestBody PrescriptionRecords prescriptionRecord, @PathVariable Integer scriptRecord) {
         try {
             PrescriptionRecords prescriptionRecords = prescriptionRecordsService.getPrescriptionRecordBySR(scriptRecord);
@@ -45,7 +45,7 @@ public class PrescriptionRecordsController {
         }
     }
 
-    @PostMapping("/new")
+    @PostMapping("")
     public ResponseEntity<?> addPrescriptionRecord(@RequestBody PrescriptionRecords prescriptionRecord){
         try {
             prescriptionRecordsService.savePrescriptionRecord(prescriptionRecord);
@@ -55,7 +55,7 @@ public class PrescriptionRecordsController {
         }
     }
 
-    @DeleteMapping("remove/{scriptRecord}")
+    @DeleteMapping("/{scriptRecord}")
     public ResponseEntity<?> removePrescriptionRecord(@PathVariable Integer scriptRecord){
         try{
             prescriptionRecordsService.deletePrescriptionRecord(scriptRecord);

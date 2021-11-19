@@ -32,7 +32,7 @@ public class TreatmentMethodController {
         }
     }
 
-    @PostMapping("/new")
+    @PostMapping("")
     public ResponseEntity<?> addTreatmentMethod(@RequestBody TreatmentMethod treatmentMethod){
         try{
             treatmentMethodService.saveTreatmentMethod(treatmentMethod);
@@ -42,7 +42,7 @@ public class TreatmentMethodController {
         }
     }
 
-    @PutMapping("/modify/{treatmentId}")
+    @PutMapping("/{treatmentId}")
     public ResponseEntity<?> updateTreatmentMethod(@RequestBody TreatmentMethod treatmentMethod, @PathVariable Integer treatmentId){
         try{
             TreatmentMethod existingTreatmentMethod = treatmentMethodService.getTreatmentMethod(treatmentId);
@@ -54,7 +54,7 @@ public class TreatmentMethodController {
         }
     }
 
-    @DeleteMapping("/remove/{treatmentId}")
+    @DeleteMapping("/{treatmentId}")
     public void deleteTreatmentMethod(@PathVariable Integer treatmentId){
         treatmentMethodService.deleteTreatmentMethod(treatmentId);
     }
