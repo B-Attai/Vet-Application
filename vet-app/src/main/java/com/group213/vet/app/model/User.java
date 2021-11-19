@@ -1,12 +1,17 @@
 package com.group213.vet.app.model;
 
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
+@Data
 @Entity // Annotate the class is an entity in the database
 @Table(name="Users") //Annotate the name of the table in the database
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String theType;
@@ -24,11 +29,11 @@ public class User {
         this.activationDate = activationDate;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Generate strategies for the values of primary keys
-    public int getId(){
-        return id;
-    }
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) //Generate strategies for the values of primary keys
+//    public int getId(){
+//        return id;
+//    }
 
     public void setId(Integer id){
         this.id = id;
@@ -66,4 +71,10 @@ public class User {
     public void setTheType(String theType) {
         this.theType = theType;
     }
+
+//    @OneToMany(mappedBy =  "userId",fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+//    private List<PrescriptionRecords> prescriptionRecords;
+    @OneToMany(targetEntity = PrescriptionRecords.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private List<PrescriptionRecords> prescriptionRecords;
 }
