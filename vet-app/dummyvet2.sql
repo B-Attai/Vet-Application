@@ -9,7 +9,7 @@ CREATE TABLE Users (
     theType             VARCHAR(30),
     email               VARCHAR(30),
     activationDate      VARCHAR(30),
-    password            VARCHAR(30) not null,
+    password            VARCHAR(200) not null,
 
 
     primary key (id)
