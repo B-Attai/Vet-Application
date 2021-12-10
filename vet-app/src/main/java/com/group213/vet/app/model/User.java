@@ -55,7 +55,8 @@ public class User {
         this.activationDate = activationDate;
     }
 
-    @OneToMany(targetEntity = PrescriptionRecords.class, cascade = CascadeType.ALL)
+
+    @OneToMany(targetEntity = PrescriptionRecords.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private List<PrescriptionRecords> prescriptionRecords;
 

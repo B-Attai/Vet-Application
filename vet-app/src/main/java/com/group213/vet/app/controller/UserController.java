@@ -20,12 +20,13 @@ public class UserController {
         UserService userService;
 
         @GetMapping("")
+        @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHING_TECHNICIAN')")
         public List<User> getUser(){
             return userService.listAllUser();
         }
 
         @GetMapping("/{id}")
-        @PreAuthorize("hasRole('ADMIN')")
+        @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHING_TECHNICIAN')")
         public ResponseEntity<User> getUserById(@PathVariable Integer id){
             try {
                 User user = userService.getUser(id);
@@ -36,6 +37,7 @@ public class UserController {
         }
 
         @PostMapping("")
+        @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHING_TECHNICIAN')")
         public ResponseEntity<?> addUser(@RequestBody User user){
             try {
                 userService.saveUser(user);
@@ -46,6 +48,7 @@ public class UserController {
         }
 
         @PutMapping("/{id}")
+        @PreAuthorize("hasRole('ADMIN')")
         public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable Integer id){
             try{
                 User existingUser = userService.getUser(id);
@@ -59,6 +62,7 @@ public class UserController {
 
 
         @DeleteMapping("/{id}")
+        @PreAuthorize("hasRole('ADMIN')")
         public void deleteUser(@PathVariable Integer id){
             userService.deleteUser(id);
         }

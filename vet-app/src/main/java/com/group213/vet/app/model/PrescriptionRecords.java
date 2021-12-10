@@ -41,7 +41,7 @@ public class PrescriptionRecords implements Serializable {
     }
 
 
-    @OneToMany(targetEntity = TreatmentMethod.class)
+    @OneToMany(targetEntity = TreatmentMethod.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "treatmentId", referencedColumnName = "treatmentMethodId")
     private  List<TreatmentMethod> treatmentMethodList;
 }
