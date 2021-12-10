@@ -2,15 +2,15 @@ package com.group213.vet.app.service;
 
 import com.group213.vet.app.model.Animal;
 import com.group213.vet.app.respository.AnimalRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -33,30 +33,42 @@ public class AnimalService {
         animalRepository.deleteById(id);
     }
 
-    JSONObject obj = new JSONObject();
 
-    public JSONObject getAnimalBreedSpecies() {
-        HashMap<String, String> test0 = new HashMap<>();
+
+    public JSONArray getAnimalProfiles() {
+
+        List<String> animalAttributes = new ArrayList<>(
+                Arrays.asList("animalId", "species", "weight", "tattooNum", "cityTattoo", "birthDate",
+                        "breed", "sex", "rfid", "microchip", "diet", "region", "subspecies",
+                        "distinguishingFeatures", "color", "alerts")
+        );
+
         try {
-            List<String> test = animalRepository.findAnimalBreedSpecies();
-            ArrayList<String> test2 = new ArrayList<String>();
-            test2.add("animalId");
-            test2.add("distinguishingFeatures");
-            test2.add("color");
-            test2.add("alerts");
+            List<String> allAnimalAttributeValues = animalRepository.findAnimalBreedSpecies();
+            JSONArray jsonArray = new JSONArray();
+            JSONObject obj = new JSONObject();
 
-            HashMap<String, String> test3 = new HashMap<>();
-            for (int i = 0; i < test.size(); i++) {
-                for(int j = 0; j< test2.size(); j++){
-                    System.out.println(test.get(i) + test2.get(j));
-                    obj.put(test.get(i), test2.get(j));
-                }
+            int counter = 0;
+                    for (int i = 0; i < allAnimalAttributeValues.size(); i++){
+                    List<String> stringList = Arrays.asList(allAnimalAttributeValues.get(i).split(","));
 
+                    for (Object o : stringList) {
+                        obj.put(animalAttributes.get(counter), o);
+                        counter++;
+                        System.out.println(counter);
+                    }
+
+//                    if (counter == animalAttributes.size() - 1) {
+//                        counter = 0;
+//                        jsonArray.add(obj);
+//                        obj = null;
+//                    }
+                    jsonArray.add(obj);
+                    System.out.println(jsonArray);
+                    return jsonArray;
             }
-            return obj;
-
         }catch (Exception e){
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         return null;
     }

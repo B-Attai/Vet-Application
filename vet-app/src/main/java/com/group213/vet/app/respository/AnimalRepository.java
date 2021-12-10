@@ -11,7 +11,7 @@ import java.util.List;
 public interface AnimalRepository
         extends JpaRepository<Animal, Integer> {
 
-    @Query(value = "select animalId, distinguishingFeatures, color, alerts from Animals", nativeQuery = true)
+    @Query(value = "select animalId, species, weight, tattooNum, cityTattoo, birthDate, breed, sex, rfid, microchip, diet, region, subspecies, distinguishingFeatures, color, alerts from Animals", nativeQuery = true)
     List<String> findAnimalBreedSpecies();
 
 }

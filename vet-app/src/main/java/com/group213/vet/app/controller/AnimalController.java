@@ -2,6 +2,7 @@ package com.group213.vet.app.controller;
 
 import com.group213.vet.app.model.Animal;
 import com.group213.vet.app.service.AnimalService;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,8 @@ public class AnimalController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('USER') or hasRole('TEACHING_TECHNICIAN') or hasRole('STUDENT')" +
             " or hasRole('ADMIN') or hasRole('ANIMAL_HEALTH_TECHNICIAN') or hasRole('ANIMAL_CARE_ATTENDANT')")
-    public JSONObject getAnimalBreedSpecies(){
-        return animalService.getAnimalBreedSpecies();
+    public JSONArray getAnimalProfiles(){
+        return animalService.getAnimalProfiles();
     }
 
     @GetMapping("/{id}")
