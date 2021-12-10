@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path = "/animals")
 
@@ -26,7 +26,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRoles('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Animal> getAnimalById(@PathVariable Integer id){
         try {
             Animal animal = animalService.getAnimal(id);
